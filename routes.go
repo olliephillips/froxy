@@ -76,7 +76,3 @@ func client(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, output)
 }
-
-func clientWithData(w http.ResponseWriter, r *http.Request) {
-
-}
