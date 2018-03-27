@@ -35,17 +35,18 @@ func handleSocket(w http.ResponseWriter, r *http.Request) {
 	defer conn.Close()
 
 	for {
-		select {
-		case data := <-froxyWS[accessKey]:
-			log.Println("data for", accessKey)
-			if data != "" {
-				err = conn.WriteMessage(websocket.TextMessage, []byte(data))
-				if err != nil {
-					// unregister conn so we stop sending
-					froxyConn[accessKey] = false
-					break
-				}
+		//select {
+		//case
+		data := <-froxyWS[accessKey]
+		log.Println("data for", accessKey)
+		if data != "" {
+			err = conn.WriteMessage(websocket.TextMessage, []byte(data))
+			if err != nil {
+				// unregister conn so we stop sending
+				froxyConn[accessKey] = false
+				break
 			}
 		}
+		//}
 	}
 }
