@@ -58,7 +58,6 @@ func client(w http.ResponseWriter, r *http.Request) {
 			} else {
 				log.Println("no web socket connection on", accessKey)
 			}
-
 		}
 	}
 
