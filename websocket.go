@@ -22,6 +22,16 @@ func handleSocket(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	accessKey := vars["accesskey"]
 
+	// check sockets allowed
+	for _, v := range f.Geofences {
+		if v.AccessKey == accessKey {
+			if !v.Websocket {
+				log.Println("websockets for", accessKey, "are not enabled. Connection denied")
+				w.WriteHeader(500)
+			}
+		}
+	}
+
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)

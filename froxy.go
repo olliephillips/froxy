@@ -16,10 +16,10 @@ type froxy struct {
 }
 
 type geofence struct {
-	Alias     string `toml:"alias"`
-	AccessKey string `toml:"accesskey"`
-	Websocket string `toml:"websocket"`
-	Webhook   string `toml:"webhook"`
+	Alias     string   `toml:"alias"`
+	AccessKey string   `toml:"accesskey"`
+	Websocket bool     `toml:"websocket"`
+	Webhooks  []string `toml:"webhooks"`
 }
 
 var f froxy
