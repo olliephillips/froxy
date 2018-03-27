@@ -25,7 +25,9 @@ func client(w http.ResponseWriter, r *http.Request) {
 
 	_, ok := froxyStatus[accessKey][clientID]
 	if !ok {
+		mutex.Lock()
 		froxyStatus[accessKey][clientID] = false
+		mutex.Unlock()
 	}
 
 	// make request
