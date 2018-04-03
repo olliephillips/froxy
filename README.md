@@ -2,15 +2,21 @@
 
 ## Fencer proxy with websocket relay and webhooks
 
-For many apps the Fencer REST API is fine for use in a client/server manner. However, in other types of applications, external systems may benefit by being able to "act" on knowledge of whether a user is inside/outside one or more geofences. In this "remote" application, the client application itself is only required to determine position.
-
-Fencer.io currently does not work well for this second style of "remote" application (but may offer support in future).
-
 Froxy is a proxy server for the Fencer API. It fulfills the remote application requirement by providing support for both websockets and webhooks both of which enable communication with supporting external apps.
+
+### Background
+
+For many Client/Server style Apps, the "Geofencing As A Service" REST API model offered by Fencer.io is exactly what is required. 
+
+In some other types of application, where external systems can benefit by being able to "act" on knowledge of whether a user is inside/outside one or more geofences, it's currently not ideal. In this "remote" application scenario, the Client application itself is only required to determine geofence inclusion - but the remote application needs to know about it.
+
+Fencer.io currently doesn't support this second style of App, where remote applications need to know about remote clients. 
+
+But Froxy does.
 
 ### Data flow
 
-1. Client application (Web/App) makes request to Froxy rather than Fencer API
+1. Client application (Web/Native) makes request to Froxy rather than Fencer API
 2. Froxy queries a geofence via Fencer API with client user's lat/lng coordinates and Fencer returns response to Froxy
 3. Applications connected by Websocket are appraised of change events (inside, outside geofence)
 4. Configured webhooks are triggered with payload
@@ -41,7 +47,7 @@ apikey = "34xx59-xxx-xxx-xxx-696xxx4010b9"
               ]
              ]
 
-# Example geofence with websockets enabled
+# Example geofence with only websockets enabled
 [[geofence]]
   alias = "Work"
   accesskey = "9cfxxa37-da4a-4edd-xxxxx-xxxxx8f0" # Fencer geofence access key
