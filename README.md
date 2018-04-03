@@ -15,7 +15,7 @@ Froxy is a proxy server for the Fencer API. It fulfills the remote application r
 3. Applications connected by Websocket are appraised of change events (inside, outside geofence)
 4. Configured webhooks are triggered with payload
 
-### Usage
+## Usage
 
 Froxy is configured with a single `config.toml` file
 
@@ -31,7 +31,7 @@ apikey = "34xx59-xxx-xxx-xxx-696xxx4010b9"
 # Maker Webhooks service
 [[geofence]]
   alias = "Home"
-  accesskey = "3096eb87-xxxx-xxxx-xxxx-5dfxxxx25273"
+  accesskey = "3096eb87-xxxx-xxxx-xxxx-5dfxxxx25273" # Fencer geofence access key
   websocket = true
   webhooks = [
               [
@@ -44,13 +44,23 @@ apikey = "34xx59-xxx-xxx-xxx-696xxx4010b9"
 # Example geofence with websockets enabled
 [[geofence]]
   alias = "Work"
-  accesskey = "9cfxxa37-da4a-4edd-xxxxx-xxxxx8f0"
+  accesskey = "9cfxxa37-da4a-4edd-xxxxx-xxxxx8f0" # Fencer geofence access key
   websocket = true
 
 ```
+### REST (Client)
+
+[work in progress]
+
+
+### Websockets
+
+[work in progress]
+
+### Webhooks
 
 [work in progress]
 
 ## Notes
-There's no authentication in Froxy (yet)
-No TLS (yet)
+- There's no authentication in Froxy (yet)
+- No TLS (yet)
