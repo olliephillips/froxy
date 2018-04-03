@@ -12,6 +12,8 @@ import (
 type Status struct {
 	ClientID string `json:"client_id"`
 	Alias    string `json:"geofence_alias"`
+	LatPos   string `json:"lat_pos"`
+	LngPos   string `json:"lng_pos"`
 	Inside   bool   `json:"inside"`
 }
 
@@ -39,24 +41,43 @@ func client(w http.ResponseWriter, r *http.Request) {
 	// check map
 	if status, ok := froxyStatus[accessKey][clientID]; ok {
 		if status != inside {
-			// changed better appraise any socket connections (if we have any)
-			if froxyConn[accessKey] {
-				// need to package this as JSON with some other info
-				status := &Status{
-					ClientID: clientID,
-					Inside:   inside,
-				}
-				// get fence alias
-				for _, v := range f.Geofences {
-					if v.AccessKey == accessKey {
-						status.Alias = v.Alias
+			// need to package this as JSON with some other info
+			webhooks := false
+			status := &Status{
+				ClientID: clientID,
+				Inside:   inside,
+				LatPos:   lat,
+				LngPos:   lng,
+			}
+
+			// get fence alias
+			for _, v := range f.Geofences {
+				if v.AccessKey == accessKey {
+					status.Alias = v.Alias
+					// check web if web hooks set up
+					if v.Webhooks != nil {
+						webhooks = true
 					}
 				}
-				// marshal to JSON and put on channel
-				json, _ := json.Marshal(status)
+			}
+
+			// marshal to JSON and put on channel
+			json, _ := json.Marshal(status)
+
+			// changed better appraise any socket connections (if we have any)
+			if froxyConn[accessKey] {
 				froxyWS[accessKey] <- string(json)
 			} else {
-				log.Println("no web socket connection on", accessKey)
+				log.Println("no websocket connection on", accessKey)
+			}
+
+			// put on channel for webhooks
+			if webhooks {
+				data := make(map[string]string)
+				data[accessKey] = string(json)
+				froxyWH <- data
+			} else {
+				log.Println("no webhooks defined for", accessKey)
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 # Froxy
 
-## Fencer proxy with web socket relay
+## Fencer proxy with websocket relay
 
 Work in progress

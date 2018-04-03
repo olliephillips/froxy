@@ -47,7 +47,7 @@ func handleSocket(w http.ResponseWriter, r *http.Request) {
 	for {
 		select {
 		case data := <-froxyWS[accessKey]:
-			log.Println("data for", accessKey)
+			log.Println("websocket data for", accessKey)
 			if data != "" {
 				err = conn.WriteMessage(websocket.TextMessage, []byte(data))
 				if err != nil {
