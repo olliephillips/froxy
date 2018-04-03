@@ -30,22 +30,22 @@ apikey = "34xx59-xxx-xxx-xxx-696xxx4010b9"
 # Example geofence with websockets enabled and a single webhook to IFTTT
 # Maker Webhooks service
 [[geofence]]
-  alias		= 	"Home"
-  accesskey = 	"3096eb87-xxxx-xxxx-xxxx-5dfxxxx25273"
-  websocket =	true
-  webhooks 	= 	[
-	  				[
-						"https://maker.ifttt.com/trigger/hook/with/key/cLnxxxxxxxq1UpCW",
-						"{ \"value1\" : \"{client_id}\", \"value2\" : \"{inside}\", \"value3\" : \"{lng_pos}\"}",
-						""
-					]
-				]
+  alias = "Home"
+  accesskey = "3096eb87-xxxx-xxxx-xxxx-5dfxxxx25273"
+  websocket = true
+  webhooks 	= [
+			   [
+			     "https://maker.ifttt.com/trigger/hook/with/key/cLnxxxxxxxq1UpCW",
+			     "{ \"value1\" : \"{client_id}\", \"value2\" : \"{inside}\", \"value3\" : \"{lng_pos}\"}",
+			     ""
+			   ]
+		]
 
 # Example geofence with websockets enabled
 [[geofence]]
-  alias 	= 	"Work"
-  accesskey = 	"9cfxxa37-da4a-4edd-xxxxx-xxxxx8f0"
-  websocket = 	true
+  alias = "Work"
+  accesskey = "9cfxxa37-da4a-4edd-xxxxx-xxxxx8f0"
+  websocket = true
 
 ```
 
