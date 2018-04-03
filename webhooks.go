@@ -60,12 +60,16 @@ func processWebhook(hook [3]string, data string) {
 		payload = strings.Replace(payload, "{lng_pos}", status.LngPos, -1)
 		payload = strings.Replace(payload, "{inside}", inside, -1)
 
+		log.Println(payload)
+
 		// send request
 		client := &http.Client{
 			Timeout: 5 * time.Second,
 		}
 
 		req, err := http.NewRequest("POST", uri, bytes.NewBuffer([]byte(payload)))
+		req.Header.Set("Content-Type", "application/json")
+
 		resp, err := client.Do(req)
 		if err != nil {
 			log.Println("webhook problem", uri, err)
