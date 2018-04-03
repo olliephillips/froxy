@@ -2,11 +2,11 @@
 
 ## Fencer proxy with websocket relay and webhooks
 
-For many apps the Fencer REST API is fine for use in a client/server manner. However, in other types of applications, external systems may benefit by being able to "act" on the knowledge (whether a user is inside or outside one or more geofences) and the client application itself is only required to determine position.
+For many apps the Fencer REST API is fine for use in a client/server manner. However, in other types of applications, external systems may benefit by being able to "act" on knowledge of whether a user is inside/outside one or more geofences. In this "remote" application, the client application itself is only required to determine position.
 
-Fencer.io currently does not work well for this second style of "remote tracking" application (but may offer support in future).
+Fencer.io currently does not work well for this second style of "remote" application (but may offer support in future).
 
-Froxy is a proxy server for the Fencer API. It supports both websockets and webhooks for push notifications to external applications.
+Froxy is a proxy server for the Fencer API. It fulfills the remote application requirement by providing support for both websockets and webhooks both of which enable communication with supporting external apps.
 
 ### Data flow
 
