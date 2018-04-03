@@ -11,6 +11,8 @@ import (
 
 func processWebhooks() {
 	// worker to pick up webhooks processing requests from froxyWH channel
+	// one is likely enough but maybe refactor to have a couple of goroutines
+	// listening to the channel?
 	for {
 		select {
 		case data := <-froxyWH:
@@ -53,14 +55,12 @@ func processWebhook(hook [3]string, data string) {
 
 	// first check that this hook should be fired for current status
 	if event == "" || event == inside {
-		// should be fired process payload
+		// should be fired process payload tokens
 		payload = strings.Replace(payload, "{client_id}", status.ClientID, -1)
 		payload = strings.Replace(payload, "{geofence_alias}", status.Alias, -1)
 		payload = strings.Replace(payload, "{lat_pos}", status.LatPos, -1)
 		payload = strings.Replace(payload, "{lng_pos}", status.LngPos, -1)
 		payload = strings.Replace(payload, "{inside}", inside, -1)
-
-		log.Println(payload)
 
 		// send request
 		client := &http.Client{
