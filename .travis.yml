@@ -1,0 +1,30 @@
+language: go
+go:
+  - 1.10
+gobuild_args: --ldflags "-X \"main.VERSION=$TRAVIS_TAG commit $TRAVIS_COMMIT\""
+
+before_deploy:
+  - mkdir release
+  - cp README.md README.txt
+  - 'GOARCH=amd64 GOOS=darwin go build --ldflags "-X \"main.VERSION=$TRAVIS_TAG commit $TRAVIS_COMMIT os=darwin-amd64\"" -o froxy && tar -zcf release/froxy-darwin-amd64.tar.gz froxy README.txt'
+  - 'GOARCH=amd64 GOOS=linux go build --ldflags "-X \"main.VERSION=$TRAVIS_TAG commit $TRAVIS_COMMIT os=linux-amd64\"" -o froxy && tar -zcf release/froxy-linux-amd64.tar.gz froxy README.txt'
+  - unix2dos -n README.md README.txt
+  - 'GOARCH=amd64 GOOS=windows go build --ldflags "-X \"main.VERSION=$TRAVIS_TAG commit $TRAVIS_COMMIT os=windows-amd64\"" -o froxy.exe && zip release/froxy-windows-amd64.zip froxy.exe README.txt'
+
+addons:
+  apt:
+    packages:
+      - dos2unix
+
+deploy:
+  skip_cleanup: true
+  tags: true
+  provider: releases
+  on:
+    repo: olliephillips/froxy
+    tags: true
+  api_key: $GITHUB_TOKEN
+  file:
+    - "release/froxy-darwin-amd64.tar.gz"
+    - "release/froxy-linux-amd64.tar.gz"
+    - "release/froxy-windows-amd64.zip"
