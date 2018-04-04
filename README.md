@@ -56,12 +56,43 @@ apikey = "34xx59-xxx-xxx-xxx-696xxx4010b9"
 ```
 ### REST (Client)
 
-[work in progress]
+By default Froxy listens on port 9000.
 
+A typical HTTP request from a web or native client app would look like the below. 
+
+```html
+http://hostdomain:9000/client/309xxx7-fcxx5-4xxb2-b1xxf-5dfxxxx5273
+```
+
+The long hash on the end of the URI is the access key of the geofence to be queried.
+
+Client requests can contain up to three request headers. 
+
+```
+Lat-Pos   : Latitude of the client      (required)
+Lng-Pos   : Longitude of the client     (required)
+Client-ID : Identifier for user/client  (optional)
+```
 
 ### Websockets
 
-[work in progress]
+A single websocket connection is supported for each geofence. A websocket connection is established by making the following request. Events fire on change in inside/outside status.
+
+```html
+ws://hostdomain:9000/ws/309xxx7-fcxx5-4xxb2-b1xxf-5dfxxxx5273
+```
+
+A JSON object is provided with each event:
+
+```json
+{
+  "client_id": "ollie",
+  "geofence_alias": "Work",
+  "lat_pos": "55.345239",
+  "lng_pos": "-2.639349",
+  "inside": true
+}
+```
 
 ### Webhooks
 
