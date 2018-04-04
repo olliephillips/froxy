@@ -107,7 +107,7 @@ webhooks = [
                 "{ \"value1\" : \"{client_id}\", \"value2\" : \"{inside}\", \"value3\" : \"{lng_pos}\"}",
                 ""
               ]
-             ]
+           ]
 ```
 
 Each webhook is a three element string array comprising webhook url, JSON payload and event on which to fire. Event can be empty, true or false, meaning fire for both inside and outside, fire when inside and,fire when outside. Like websockets, webhooks fire on change in inside/outside status only (unless event is left empty).
