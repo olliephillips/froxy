@@ -98,7 +98,7 @@ A JSON object is provided with each event:
 
 ### Webhooks
 
-Webhooks allow HTTP POST calls to external applications which support them. Multiple webhooks can be configured in 'config.toml'.
+Webhooks allow HTTP POST calls to external applications which support them. Multiple webhooks can be configured in 'config.toml'. 
 
 ```
 webhooks = [
