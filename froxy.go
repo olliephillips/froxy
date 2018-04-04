@@ -57,7 +57,7 @@ func main() {
 	// configure server
 	srv := &http.Server{
 		Handler:      r,
-		Addr:         "127.0.0.1:9000",
+		Addr:         ":9000",
 		WriteTimeout: 10 * time.Second,
 		ReadTimeout:  10 * time.Second,
 	}
