@@ -112,7 +112,7 @@ webhooks = [
 
 Each webhook is a three element string array comprising webhook url, JSON payload and event on which to fire. Event can be empty, true or false, meaning fire for both inside and outside, fire when inside and,fire when outside. Like websockets, webhooks fire on change in inside/outside status only (unless event is left empty).
 
-The JSON payload provides data to the application being calling. The payload string can be tokenised, and these tokens will be substituted for actual data when the webhook fires. 
+The JSON payload provides data to the application being called. The payload string can be tokenised, and these tokens will be substituted for actual data when the webhook fires. 
 
 In the example below, the IFTTT maker service supports three values. The payload has been tokenised to include `{client_id}`, `{geofence_alias}` and `{inside}`.  These values can then be relayed to the IFTTT service being employed. SMS for example.
 ```
@@ -130,5 +130,5 @@ Available tokens are:
 ```
 
 ## Notes
-- There's no authentication in Froxy (yet)
+- There's no client authentication in Froxy (yet)
 - No TLS (yet)
