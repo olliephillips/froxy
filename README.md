@@ -66,12 +66,12 @@ http://hostdomain:9000/client/309xxx7-fcxx5-4xxb2-b1xxf-5dfxxxx5273
 
 The long hash on the end of the URI is the access key of the geofence to be queried.
 
-Client requests can contain up to three request headers. 
+Client requests must send three request headers. 
 
 ```
-Lat-Pos   : Latitude of the client      (required)
-Lng-Pos   : Longitude of the client     (required)
-Client-ID : Identifier for user/client  (optional)
+Lat-Pos   : Latitude of the client
+Lng-Pos   : Longitude of the client
+Client-ID : Identifier for user/client
 ```
 
 ### Websockets
