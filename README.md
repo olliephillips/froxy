@@ -76,7 +76,9 @@ Client-ID : Identifier for user/client  (optional)
 
 ### Websockets
 
-A single websocket connection is supported for each geofence. A websocket connection is established by making the following request. Events fire on change in inside/outside status.
+A single websocket connection is supported for each geofence. To enable, specify `websocket = true` for the geofence in `config.toml`.
+
+A websocket connection is established by making the following style request. Again, the hash is the access key of the geofence. Events fire on change in inside/outside status.
 
 ```html
 ws://hostdomain:9000/ws/309xxx7-fcxx5-4xxb2-b1xxf-5dfxxxx5273
@@ -96,7 +98,36 @@ A JSON object is provided with each event:
 
 ### Webhooks
 
-[work in progress]
+Webhooks allow HTTP POST calls to external applications which support them. Multiple webhooks can be configured in 'config.toml'.
+
+```
+webhooks = [
+              [
+                "https://maker.ifttt.com/trigger/hook/with/key/cLnxxxxxxxq1UpCW",
+                "{ \"value1\" : \"{client_id}\", \"value2\" : \"{inside}\", \"value3\" : \"{lng_pos}\"}",
+                ""
+              ]
+             ]
+```
+
+Each webhook is a three element string array comprising webhook url, JSON payload and event on which to fire. Event can be empty, true or false, meaning fire for both inside and outside, fire when inside and,fire when outside. 
+
+The JSON payload provides data to the application being calling. The payload string can be tokenised, and these tokens will be substituted for actual data when the webhook fires. 
+
+In the example below, the IFTTT maker service supports three values. The payload has been tokenised to include `{client_id}`, `{geofence_alias}` and `{inside}`.  These values can then be relayed to the IFTTT service being employed. SMS for example.
+```
+"{ \"value1\" : \"{client_id}\", \"value2\" : \"{geofence_alias}\", \"value3\" : \"{inside}\"}
+```
+
+Available tokens are:
+
+```
+{client_id}
+{geofence_alias}
+{lat_pos}
+{lng_pos}
+{inside}
+```
 
 ## Notes
 - There's no authentication in Froxy (yet)
