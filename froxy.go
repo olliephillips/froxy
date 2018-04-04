@@ -36,8 +36,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Println(f)
-
 	// init tracking map and message channel for each geofence
 	for _, v := range f.Geofences {
 		froxyStatus[v.AccessKey] = make(map[string]bool)
