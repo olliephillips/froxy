@@ -8,6 +8,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 type froxy struct {
@@ -52,9 +53,15 @@ func main() {
 	// websockets
 	r.HandleFunc(`/ws/{accesskey:[a-zA-Z0-9=\-\/]+}`, handleSocket).Methods("GET")
 
+	// cors policy
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+	})
+
 	// configure server
 	srv := &http.Server{
-		Handler:      r,
+		Handler:      c.Handler(r),
 		Addr:         ":9000",
 		WriteTimeout: 10 * time.Second,
 		ReadTimeout:  10 * time.Second,
