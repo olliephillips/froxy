@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"time"
 
@@ -31,6 +32,11 @@ var froxyWH = make(chan map[string]string)
 var froxyStatus = make(map[string]map[string]bool)
 var froxyConn = make(map[string]bool)
 
+const (
+	PORT = "9000"
+	HOST = "localhost"
+)
+
 func main() {
 	// load config.toml
 	if _, err := toml.DecodeFile("config.toml", &f); err != nil {
@@ -41,6 +47,15 @@ func main() {
 	for _, v := range f.Geofences {
 		froxyStatus[v.AccessKey] = make(map[string]bool)
 		froxyWS[v.AccessKey] = make(chan string)
+	}
+
+	// CF on Bluemix
+	var host, port string
+	if host = os.Getenv("VCAP_APP_HOST"); len(host) == 0 {
+		host = HOST
+	}
+	if port = os.Getenv("VCAP_APP_PORT"); len(port) == 0 {
+		port = PORT
 	}
 
 	// router
@@ -62,7 +77,7 @@ func main() {
 	// configure server
 	srv := &http.Server{
 		Handler:      c.Handler(r),
-		Addr:         ":9000",
+		Addr:         host + ":" + port,
 		WriteTimeout: 10 * time.Second,
 		ReadTimeout:  10 * time.Second,
 	}
