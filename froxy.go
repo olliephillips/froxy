@@ -63,7 +63,7 @@ func main() {
 
 	// application route handlers
 	// client applications
-	r.HandleFunc(`/client/{accesskey:[a-zA-Z0-9=\-\/]+}`, client).Methods("GET")
+	r.HandleFunc(`/client/{accesskey:[a-zA-Z0-9=\-\/]+}`, client)
 
 	// websockets
 	r.HandleFunc(`/ws/{accesskey:[a-zA-Z0-9=\-\/]+}`, handleSocket).Methods("GET")
@@ -72,6 +72,8 @@ func main() {
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
+		AllowedHeaders:   []string{"client-id", "lat-pos", "lng-pos"},
+		AllowedMethods:   []string{"GET"},
 	})
 
 	// configure server
